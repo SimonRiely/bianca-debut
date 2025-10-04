@@ -1,141 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bianca Turns 18!!!</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #ffe0e0, #f7d1ba);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bianca Turns 18!!!</title>
+<link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
 
-    h1 {
-      font-family: 'Brush Script MT', cursive;
-      font-size: 60px;
-      font-weight: bold;
-      color: #b66a50;
-      margin-bottom: 20px;
-    }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff5f0;
+    background-image: url('boho.png'); /* your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
-    .card {
-      background: #fff8f5;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 90%;
-    }
+  h1 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 60px;
+    font-weight: bold;
+    color: #b66a50;
+    margin: 0 0 20px 0;
+    text-align: center;
+  }
 
-    input {
-      width: 90%;
-      padding: 10px;
-      border: 2px solid #d8a48f;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  #biancaPhoto {
+    width: 250px;
+    height: 250px;
+    border-radius: 25px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
 
-    button {
-      background-color: #d8a48f;
-      color: white;
-      font-size: 18px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      margin: 10px;
-      transition: 0.3s;
-    }
+  .card {
+    background: #ffffffcc; 
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
 
-    button:hover {
-      background-color: #b66a50;
-      transform: scale(1.05);
-    }
+  .card.hidden {
+    display: none;
+  }
 
-    .hidden {
-      display: none;
-    }
+  input {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #d8a48f;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    outline: none;
+    transition: border 0.3s;
+  }
+  input:focus {
+    border-color: #b66a50;
+  }
 
-    img {
-      width: 250px;
-      height: 250px;
-      border-radius: 20px;
-      object-fit: cover;
-      margin-bottom: 20px;
-    }
+  button {
+    background-color: #d8a48f;
+    color: white;
+    font-size: 18px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #b66a50;
+    transform: scale(1.08);
+  }
 
-    .message {
-      margin-top: 20px;
-      color: green;
-      font-weight: bold;
-    }
-  </style>
+  .message {
+    margin-top: 10px;
+    font-weight: bold;
+    min-height: 24px; 
+  }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 45px; }
+    .card { padding: 20px; }
+    button { font-size: 16px; padding: 10px 20px; }
+    #biancaPhoto { width: 200px; height: 200px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Bianca Turns 18!!!</h1>
 
-  <div class="card" id="intro">
-    <img src="byanka.jpg" alt="Bianca">
-    <p>Hi! Please type your name to RSVP:</p>
-    <input type="text" id="guestName" placeholder="Enter your name">
-    <button onclick="goToQuestion()">Next</button>
-  </div>
+<h1>Bianca Turns 18!!!</h1>
+<img src="byanka.jpg" alt="Bianca" id="biancaPhoto">
 
-  <div class="card hidden" id="questionCard">
-    <p>Will you be attending Bianca’s 18th Birthday Celebration?</p>
-    <button onclick="submitAnswer('Yes 💖')">Yes</button>
-    <button onclick="submitAnswer('No 😢')">No</button>
-    <p class="message" id="message"></p>
-  </div>
+<!-- Step 1: Enter Name -->
+<div class="card" id="intro">
+  <input type="text" id="guestName" placeholder="Enter your name">
+  <button onclick="goToQuestion()">Next</button>
+  <p class="message" id="introMessage"></p>
+</div>
 
-  <script>
-    const intro = document.getElementById("intro");
-    const questionCard = document.getElementById("questionCard");
-    const message = document.getElementById("message");
-    const guestName = document.getElementById("guestName");
+<!-- Step 2: 18th Roses RSVP -->
+<div class="card hidden" id="questionCard">
+  <p style="font-size: 20px; font-weight: 600;">Can you be one of my 18th Roses?</p>
+  <button onclick="submitAnswer('Yes 💖')">Yes 💖</button>
+  <button onclick="submitAnswer('No 😢')">No 😢</button>
+  <p class="message" id="rsvpMessage"></p>
+</div>
 
-    function goToQuestion() {
-      if (guestName.value.trim() === "") {
-        alert("Please enter your name first!");
-        return;
+<script>
+const intro = document.getElementById("intro");
+const questionCard = document.getElementById("questionCard");
+const guestName = document.getElementById("guestName");
+const introMessage = document.getElementById("introMessage");
+const rsvpMessage = document.getElementById("rsvpMessage");
+const scriptURL = "https://script.google.com/macros/s/AKfycbzqKlrTPeqd5NFex66L6MJCUrkRMAS5yAsrc88DwMPQROpD27pSbNiXbpcWDknYy34N/exec";
+
+guestName.addEventListener("keypress", function(e){
+  if(e.key === "Enter") goToQuestion();
+});
+
+function goToQuestion() {
+  if(guestName.value.trim() === "") {
+    introMessage.textContent = "Please enter your name first!";
+    introMessage.style.color = "red";
+    return;
+  }
+  introMessage.textContent = "";
+  intro.classList.add("hidden");
+  questionCard.classList.remove("hidden");
+}
+
+function submitAnswer(answer) {
+  const name = guestName.value;
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("answer", answer);
+
+  const buttons = questionCard.querySelectorAll("button");
+  buttons.forEach(btn => btn.disabled = true);
+
+  fetch(scriptURL, { method: "POST", body: formData })
+    .then(response => {
+      if(response.ok){
+        rsvpMessage.textContent = "Your response has been saved. Thank you!";
+        rsvpMessage.style.color = "green";
+      } else {
+        rsvpMessage.textContent = "Problem saving. ❌";
+        rsvpMessage.style.color = "red";
+        buttons.forEach(btn => btn.disabled = false);
       }
-      intro.classList.add("hidden");
-      questionCard.classList.remove("hidden");
-    }
+    })
+    .catch(error => {
+      rsvpMessage.textContent = "Error: " + error.message;
+      rsvpMessage.style.color = "red";
+      buttons.forEach(btn => btn.disabled = false);
+    });
+}
+</script>
 
-    function submitAnswer(answer) {
-      const name = guestName.value;
-
-      // 🔗 Paste your Google Script Web App URL here 👇
-      const scriptURL = "https://script.google.com/macros/s/AKfycbz0tN8NMl9y4nOR16dTlW8Miu7a0-KGos6kWOFej1wC1P4t1BIWIe3ACkNyNMGqY1Gm/exec";
-
-      fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify({ name: name, answer: answer }),
-        headers: { "Content-Type": "application/json" },
-      })
-      .then(response => {
-        if (response.ok) {
-          message.textContent = "Your response has been saved. Thank you!";
-          message.style.color = "green";
-        } else {
-          message.textContent = "There was a problem saving your answer.";
-          message.style.color = "red";
-        }
-      })
-      .catch(error => {
-        message.textContent = "Error: " + error.message;
-        message.style.color = "red";
-      });
-    }
-  </script>
 </body>
 </html>
