@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bianca Turns 18!!!</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #ffe0e0, #f7d1ba);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 60px;
+      font-weight: bold;
+      color: #b66a50;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #fff8f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      border: 2px solid #d8a48f;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #d8a48f;
+      color: white;
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #b66a50;
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    img {
+      width: 250px;
+      height: 250px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bianca Turns 18!!!</h1>
+
+  <div class="card" id="intro">
+    <img src="byanka.jpg" alt="Bianca">
+    <p>Hi! Please type your name to RSVP:</p>
+    <input type="text" id="guestName" placeholder="Enter your name">
+    <button onclick="goToQuestion()">Next</button>
+  </div>
+
+  <div class="card hidden" id="questionCard">
+    <p>Will you be attending Bianca’s 18th Birthday Celebration?</p>
+    <button onclick="submitAnswer('Yes 💖')">Yes</button>
+    <button onclick="submitAnswer('No 😢')">No</button>
+    <p class="message" id="message"></p>
+  </div>
+
+  <script>
+    const intro = document.getElementById("intro");
+    const questionCard = document.getElementById("questionCard");
+    const message = document.getElementById("message");
+    const guestName = document.getElementById("guestName");
+
+    function goToQuestion() {
+      if (guestName.value.trim() === "") {
+        alert("Please enter your name first!");
+        return;
+      }
+      intro.classList.add("hidden");
+      questionCard.classList.remove("hidden");
+    }
+
+    function submitAnswer(answer) {
+      const name = guestName.value;
+
+      // 🔗 Paste your Google Script Web App URL here 👇
+      const scriptURL = "https://script.google.com/macros/s/AKfycbz0tN8NMl9y4nOR16dTlW8Miu7a0-KGos6kWOFej1wC1P4t1BIWIe3ACkNyNMGqY1Gm/exec";
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify({ name: name, answer: answer }),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(response => {
+        if (response.ok) {
+          message.textContent = "Your response has been saved. Thank you!";
+          message.style.color = "green";
+        } else {
+          message.textContent = "There was a problem saving your answer.";
+          message.style.color = "red";
+        }
+      })
+      .catch(error => {
+        message.textContent = "Error: " + error.message;
+        message.style.color = "red";
+      });
+    }
+  </script>
+</body>
+</html>
