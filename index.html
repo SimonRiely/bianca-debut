@@ -6,100 +6,108 @@
 <title>Bianca Turns 18!!!</title>
 <link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
 
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff5f0;
-    background-image: url('boho.png'); /* your background image */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff5f0;
+  background-image: url('boho.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-  h1 {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 60px;
-    font-weight: bold;
-    color: #b66a50;
-    margin: 0 0 20px 0;
-    text-align: center;
-  }
+h1 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 60px;
+  font-weight: bold;
+  color: #b66a50;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
 
-  #biancaPhoto {
-    width: 250px;
-    height: 250px;
-    border-radius: 25px;
-    object-fit: cover;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
+#biancaPhoto {
+  width: 250px;
+  height: 250px;
+  border-radius: 25px;
+  object-fit: cover;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-  .card {
-    background: #ffffffcc; 
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    position: relative;
-  }
+.card {
+  background: #ffffffcc;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
-  .card.hidden {
-    display: none;
-  }
+.card.hidden { display: none; }
 
-  input {
-    width: 90%;
-    padding: 12px;
-    border: 2px solid #d8a48f;
-    border-radius: 15px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    text-align: center;
-    outline: none;
-    transition: border 0.3s;
-  }
-  input:focus {
-    border-color: #b66a50;
-  }
+input {
+  width: 90%;
+  padding: 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  outline: none;
+  background: linear-gradient(145deg, #ffe0e0, #f7d1ba);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  button {
-    background-color: #d8a48f;
-    color: white;
-    font-size: 18px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    margin: 10px 5px;
-    transition: 0.3s;
-  }
-  button:hover {
-    background-color: #b66a50;
-    transform: scale(1.08);
-  }
+input::placeholder {
+  color: #b66a50;
+  font-weight: 500;
+}
 
-  .message {
-    margin-top: 10px;
-    font-weight: bold;
-    min-height: 24px; 
-  }
+input:focus {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(182,106,80,0.3);
+}
 
-  @media (max-width: 400px) {
-    h1 { font-size: 45px; }
-    .card { padding: 20px; }
-    button { font-size: 16px; padding: 10px 20px; }
-    #biancaPhoto { width: 200px; height: 200px; }
-  }
+button {
+  background-color: #d8a48f;
+  color: white;
+  font-size: 18px;
+  width: 45%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 2.5%;
+  transition: 0.2s;
+}
+
+button:hover { background-color: #b66a50; transform: scale(1.05); }
+button:active { transform: scale(0.95); }
+
+.message {
+  margin-top: 10px;
+  font-weight: bold;
+  min-height: 24px;
+}
+
+@media (max-width: 500px) {
+  h1 { font-size: 45px; }
+  .card { padding: 20px; }
+  button { font-size: 16px; padding: 10px 0; }
+  #biancaPhoto { width: 200px; height: 200px; }
+}
 </style>
 </head>
 <body>
@@ -107,20 +115,21 @@
 <h1>Bianca Turns 18!!!</h1>
 <img src="byanka.jpg" alt="Bianca" id="biancaPhoto">
 
-<!-- Step 1: Enter Name -->
 <div class="card" id="intro">
-  <input type="text" id="guestName" placeholder="Enter your name">
+  <input type="text" id="guestName" placeholder="Enter your name 🌸">
   <button onclick="goToQuestion()">Next</button>
   <p class="message" id="introMessage"></p>
 </div>
 
-<!-- Step 2: 18th Roses RSVP -->
 <div class="card hidden" id="questionCard">
   <p style="font-size: 20px; font-weight: 600;">Can you be one of my 18th Roses?</p>
-  <button onclick="submitAnswer('Yes 💖')">Yes 💖</button>
-  <button onclick="submitAnswer('No 😢')">No 😢</button>
+  <div style="display: flex; justify-content: center;">
+    <button onclick="submitAnswer('Yes 💖 (Roses)')">Yes 💖 (Roses)</button>
+    <button onclick="submitAnswer('No 😢 (Roses)')">No 😢 (Roses)</button>
+  </div>
   <p class="message" id="rsvpMessage"></p>
 </div>
+
 
 <script>
 const intro = document.getElementById("intro");
@@ -130,9 +139,7 @@ const introMessage = document.getElementById("introMessage");
 const rsvpMessage = document.getElementById("rsvpMessage");
 const scriptURL = "https://script.google.com/macros/s/AKfycbzqKlrTPeqd5NFex66L6MJCUrkRMAS5yAsrc88DwMPQROpD27pSbNiXbpcWDknYy34N/exec";
 
-guestName.addEventListener("keypress", function(e){
-  if(e.key === "Enter") goToQuestion();
-});
+guestName.addEventListener("keypress", e => { if(e.key === "Enter") goToQuestion(); });
 
 function goToQuestion() {
   if(guestName.value.trim() === "") {
@@ -140,9 +147,19 @@ function goToQuestion() {
     introMessage.style.color = "red";
     return;
   }
-  introMessage.textContent = "";
-  intro.classList.add("hidden");
-  questionCard.classList.remove("hidden");
+  // Animate card transition
+  intro.style.transform = "scale(0.95)";
+  intro.style.opacity = "0";
+  setTimeout(() => {
+    intro.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+    questionCard.style.transform = "scale(0.95)";
+    questionCard.style.opacity = "0";
+    setTimeout(() => {
+      questionCard.style.transform = "scale(1)";
+      questionCard.style.opacity = "1";
+    }, 50);
+  }, 200);
 }
 
 function submitAnswer(answer) {
