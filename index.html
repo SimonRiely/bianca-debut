@@ -11,7 +11,6 @@ html, body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
 }
-
 body {
   display: flex;
   flex-direction: column;
@@ -22,17 +21,21 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  overflow: hidden;
 }
-
 h1 {
   font-family: 'Brush Script MT', cursive;
   font-size: 60px;
   font-weight: bold;
   color: #b66a50;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   text-align: center;
 }
-
+h2 {
+  font-size: 20px;
+  color: #b66a50;
+  margin: 0 0 20px 0;
+}
 #biancaPhoto {
   width: 250px;
   height: 250px;
@@ -40,8 +43,9 @@ h1 {
   object-fit: cover;
   margin-bottom: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
 }
-
 .card {
   background: #ffffffcc;
   padding: 30px;
@@ -52,10 +56,9 @@ h1 {
   text-align: center;
   position: relative;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
 }
-
 .card.hidden { display: none; }
-
 input {
   width: 90%;
   padding: 14px;
@@ -69,17 +72,14 @@ input {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 input::placeholder {
   color: #b66a50;
   font-weight: 500;
 }
-
 input:focus {
   transform: scale(1.02);
   box-shadow: 0 6px 12px rgba(182,106,80,0.3);
 }
-
 button {
   background-color: #d8a48f;
   color: white;
@@ -92,16 +92,14 @@ button {
   margin: 10px 2.5%;
   transition: 0.2s;
 }
-
 button:hover { background-color: #b66a50; transform: scale(1.05); }
 button:active { transform: scale(0.95); }
-
-.message {
-  margin-top: 10px;
-  font-weight: bold;
-  min-height: 24px;
-}
-
+.message { margin-top: 10px; font-weight: bold; min-height: 24px; }
+/* Confetti style */
+.confetti-piece { position: absolute; width: 10px; height: 10px; pointer-events: none; z-index: 9999; }
+/* Raindrops style */
+.raindrop { position: absolute; width: 6px; height: 14px; background: #4da6ff; border-radius: 50%; pointer-events: none; animation: fall 1s linear infinite; z-index: 9999; }
+@keyframes fall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
 @media (max-width: 500px) {
   h1 { font-size: 45px; }
   .card { padding: 20px; }
@@ -113,6 +111,7 @@ button:active { transform: scale(0.95); }
 <body>
 
 <h1>Bianca Turns 18!!!</h1>
+<h2>November 2, 2025</h2>
 <img src="byanka.jpg" alt="Bianca" id="biancaPhoto">
 
 <div class="card" id="intro">
@@ -124,12 +123,11 @@ button:active { transform: scale(0.95); }
 <div class="card hidden" id="questionCard">
   <p style="font-size: 20px; font-weight: 600;">Can you be one of my 18th Roses?</p>
   <div style="display: flex; justify-content: center;">
-    <button onclick="submitAnswer('Yes 💖 (Roses)')">Yes 💖 (Roses)</button>
-    <button onclick="submitAnswer('No 😢 (Roses)')">No 😢 (Roses)</button>
+    <button onclick="submitAnswer('Yes 💖 (Roses)', 'yes')">Yes 💖 (Roses)</button>
+    <button onclick="submitAnswer('No 😢 (Roses)', 'no')">No 😢 (Roses)</button>
   </div>
   <p class="message" id="rsvpMessage"></p>
 </div>
-
 
 <script>
 const intro = document.getElementById("intro");
@@ -137,6 +135,7 @@ const questionCard = document.getElementById("questionCard");
 const guestName = document.getElementById("guestName");
 const introMessage = document.getElementById("introMessage");
 const rsvpMessage = document.getElementById("rsvpMessage");
+const biancaPhoto = document.getElementById("biancaPhoto");
 const scriptURL = "https://script.google.com/macros/s/AKfycbzqKlrTPeqd5NFex66L6MJCUrkRMAS5yAsrc88DwMPQROpD27pSbNiXbpcWDknYy34N/exec";
 
 guestName.addEventListener("keypress", e => { if(e.key === "Enter") goToQuestion(); });
@@ -147,7 +146,6 @@ function goToQuestion() {
     introMessage.style.color = "red";
     return;
   }
-  // Animate card transition
   intro.style.transform = "scale(0.95)";
   intro.style.opacity = "0";
   setTimeout(() => {
@@ -162,8 +160,47 @@ function goToQuestion() {
   }, 200);
 }
 
-function submitAnswer(answer) {
+// Confetti animation around photo
+function createConfetti() {
+  for(let i=0;i<50;i++){
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti-piece';
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+    confetti.style.left = (biancaPhoto.offsetLeft + Math.random()*biancaPhoto.offsetWidth) + 'px';
+    confetti.style.top = (biancaPhoto.offsetTop + Math.random()*-50) + 'px';
+    confetti.style.width = Math.random()*10+5+'px';
+    confetti.style.height = confetti.style.width;
+    document.body.appendChild(confetti);
+    let fall = setInterval(() => {
+      let top = parseFloat(confetti.style.top);
+      if(top > window.innerHeight){ confetti.remove(); clearInterval(fall); }
+      else confetti.style.top = top + 5 + 'px';
+    }, 20);
+  }
+}
+
+// Raindrop animation around photo
+function createRain() {
+  for(let i=0;i<30;i++){
+    const drop = document.createElement('div');
+    drop.className = 'raindrop';
+    drop.style.left = (biancaPhoto.offsetLeft + Math.random()*biancaPhoto.offsetWidth) + 'px';
+    drop.style.top = (biancaPhoto.offsetTop + Math.random()*-50) + 'px';
+    drop.style.animationDuration = (Math.random()*1+0.5)+'s';
+    document.body.appendChild(drop);
+    setTimeout(()=>{ drop.remove(); }, 2000);
+  }
+}
+
+// **Instant animation trigger**
+function submitAnswer(answer, type) {
   const name = guestName.value;
+
+  // Trigger animation immediately
+  if(type==='yes') createConfetti();
+  else if(type==='no') createRain();
+
+  // Send data to Google Sheets asynchronously
   const formData = new FormData();
   formData.append("name", name);
   formData.append("answer", answer);
