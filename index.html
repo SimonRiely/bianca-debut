@@ -3,95 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bianca Turns 18!!!</title>
+<title>Bianca Turns 18!!! - Roses</title>
 <link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
+html, body { height: 100%; margin: 0; font-family: 'Poppins', sans-serif; }
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   background-color: #fff5f0;
   background-image: url('boho.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-size: cover; background-repeat: no-repeat; background-position: center;
   overflow: hidden;
 }
-h1 {
-  font-family: 'Brush Script MT', cursive;
-  font-size: 60px;
-  font-weight: bold;
-  color: #b66a50;
-  margin: 0 0 10px 0;
-  text-align: center;
-}
-h2 {
-  font-size: 20px;
-  color: #b66a50;
-  margin: 0 0 20px 0;
-}
-#biancaPhoto {
-  width: 250px;
-  height: 250px;
-  border-radius: 25px;
-  object-fit: cover;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 1;
-}
-.card {
-  background: #ffffffcc;
-  padding: 30px;
-  border-radius: 25px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  position: relative;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
-}
+h1 { font-family: 'Brush Script MT', cursive; font-size: 60px; color: #b66a50; margin: 0 0 10px 0; text-align: center; }
+h2 { font-size: 20px; color: #b66a50; margin: 0 0 20px 0; }
+#biancaPhoto { width: 250px; height: 250px; border-radius: 25px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1; }
+.card { background: #ffffffcc; padding: 30px; border-radius: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); max-width: 400px; width: 90%; text-align: center; transition: transform 0.3s ease, opacity 0.3s ease; z-index: 1; }
 .card.hidden { display: none; }
-input {
-  width: 90%;
-  padding: 14px;
-  border: none;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  text-align: center;
-  outline: none;
-  background: linear-gradient(145deg, #ffe0e0, #f7d1ba);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-input::placeholder {
-  color: #b66a50;
-  font-weight: 500;
-}
-input:focus {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(182,106,80,0.3);
-}
-button {
-  background-color: #d8a48f;
-  color: white;
-  font-size: 18px;
-  width: 45%;
-  padding: 12px 0;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  margin: 10px 2.5%;
-  transition: 0.2s;
-}
+input { width: 90%; padding: 14px; border: none; border-radius: 20px; font-size: 16px; margin-bottom: 20px; text-align: center; outline: none; background: linear-gradient(145deg, #ffe0e0, #f7d1ba); box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+input::placeholder { color: #b66a50; font-weight: 500; }
+input:focus { transform: scale(1.02); box-shadow: 0 6px 12px rgba(182,106,80,0.3); }
+button { background-color: #d8a48f; color: white; font-size: 18px; width: 45%; padding: 12px 0; border: none; border-radius: 25px; cursor: pointer; margin: 10px 2.5%; transition: 0.2s; }
 button:hover { background-color: #b66a50; transform: scale(1.05); }
 button:active { transform: scale(0.95); }
 .message { margin-top: 10px; font-weight: bold; min-height: 24px; }
@@ -126,7 +57,7 @@ button:active { transform: scale(0.95); }
     <button onclick="submitAnswer('Yes 💖 (Roses)', 'yes')">Yes 💖 (Roses)</button>
     <button onclick="submitAnswer('No 😢 (Roses)', 'no')">No 😢 (Roses)</button>
   </div>
-  <p class="message" id="rsvpMessage"></p>
+  <p class="message" id="roseMessage"></p>
 </div>
 
 <script>
@@ -134,7 +65,7 @@ const intro = document.getElementById("intro");
 const questionCard = document.getElementById("questionCard");
 const guestName = document.getElementById("guestName");
 const introMessage = document.getElementById("introMessage");
-const rsvpMessage = document.getElementById("rsvpMessage");
+const roseMessage = document.getElementById("roseMessage");
 const biancaPhoto = document.getElementById("biancaPhoto");
 const scriptURL = "https://script.google.com/macros/s/AKfycbzqKlrTPeqd5NFex66L6MJCUrkRMAS5yAsrc88DwMPQROpD27pSbNiXbpcWDknYy34N/exec";
 
@@ -160,7 +91,6 @@ function goToQuestion() {
   }, 200);
 }
 
-// Confetti animation around photo
 function createConfetti() {
   for(let i=0;i<50;i++){
     const confetti = document.createElement('div');
@@ -179,7 +109,6 @@ function createConfetti() {
   }
 }
 
-// Raindrop animation around photo
 function createRain() {
   for(let i=0;i<30;i++){
     const drop = document.createElement('div');
@@ -192,38 +121,24 @@ function createRain() {
   }
 }
 
-// **Instant animation trigger**
 function submitAnswer(answer, type) {
-  const name = guestName.value;
+  roseMessage.textContent = type==='yes' ? "Yay! 🎉" : "Aww 😢";
+  roseMessage.style.color = type==='yes' ? "green" : "blue";
 
-  // Trigger animation immediately
+  // Disable buttons to prevent more submissions
+  const buttons = questionCard.querySelectorAll("button");
+  buttons.forEach(btn => btn.disabled = true);
+  guestName.disabled = true;
+
   if(type==='yes') createConfetti();
   else if(type==='no') createRain();
 
-  // Send data to Google Sheets asynchronously
+  const name = guestName.value;
   const formData = new FormData();
   formData.append("name", name);
   formData.append("answer", answer);
-
-  const buttons = questionCard.querySelectorAll("button");
-  buttons.forEach(btn => btn.disabled = true);
-
   fetch(scriptURL, { method: "POST", body: formData })
-    .then(response => {
-      if(response.ok){
-        rsvpMessage.textContent = "Your response has been saved. Thank you!";
-        rsvpMessage.style.color = "green";
-      } else {
-        rsvpMessage.textContent = "Problem saving. ❌";
-        rsvpMessage.style.color = "red";
-        buttons.forEach(btn => btn.disabled = false);
-      }
-    })
-    .catch(error => {
-      rsvpMessage.textContent = "Error: " + error.message;
-      rsvpMessage.style.color = "red";
-      buttons.forEach(btn => btn.disabled = false);
-    });
+    .catch(error => { console.error("Error saving:", error); });
 }
 </script>
 
