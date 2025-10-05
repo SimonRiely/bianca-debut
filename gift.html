@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bianca Turns 18!!! - Gift</title>
+<link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+html, body { height: 100%; margin: 0; font-family: 'Poppins', sans-serif; }
+body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background-color: #fff5f0;
+  background-image: url('boho.png');
+  background-size: cover; background-repeat: no-repeat; background-position: center;
+  overflow: hidden;
+}
+h1 { font-family: 'Brush Script MT', cursive; font-size: 60px; color: #b66a50; margin: 0 0 10px 0; text-align: center; }
+h2 { font-size: 20px; color: #b66a50; margin: 0 0 20px 0; }
+#biancaPhoto { width: 250px; height: 250px; border-radius: 25px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1; }
+.card { background: #ffffffcc; padding: 30px; border-radius: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); max-width: 400px; width: 90%; text-align: center; transition: transform 0.3s ease, opacity 0.3s ease; z-index: 1; }
+.card.hidden { display: none; }
+input { width: 90%; padding: 14px; border: none; border-radius: 20px; font-size: 16px; margin-bottom: 20px; text-align: center; outline: none; background: linear-gradient(145deg, #ffe0e0, #f7d1ba); box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+input::placeholder { color: #b66a50; font-weight: 500; }
+input:focus { transform: scale(1.02); box-shadow: 0 6px 12px rgba(182,106,80,0.3); }
+button { background-color: #d8a48f; color: white; font-size: 18px; width: 45%; padding: 12px 0; border: none; border-radius: 25px; cursor: pointer; margin: 10px 2.5%; transition: 0.2s; }
+button:hover { background-color: #b66a50; transform: scale(1.05); }
+button:active { transform: scale(0.95); }
+.message { margin-top: 10px; font-weight: bold; min-height: 24px; }
+/* Confetti style */
+.confetti-piece { position: absolute; width: 10px; height: 10px; pointer-events: none; z-index: 9999; }
+/* Raindrops style */
+.raindrop { position: absolute; width: 6px; height: 14px; background: #4da6ff; border-radius: 50%; pointer-events: none; animation: fall 1s linear infinite; z-index: 9999; }
+@keyframes fall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
+@media (max-width: 500px) {
+  h1 { font-size: 45px; }
+  .card { padding: 20px; }
+  button { font-size: 16px; padding: 10px 0; }
+  #biancaPhoto { width: 200px; height: 200px; }
+}
+</style>
+</head>
+<body>
+
+<h1>Bianca Turns 18!!!</h1>
+<h2>November 2, 2025</h2>
+<img src="byanka.jpg" alt="Bianca" id="biancaPhoto">
+
+<div class="card" id="intro">
+  <input type="text" id="guestName" placeholder="Enter your name 🌸">
+  <button onclick="goToQuestion()">Next</button>
+  <p class="message" id="introMessage"></p>
+</div>
+
+<div class="card hidden" id="questionCard">
+  <p style="font-size: 20px; font-weight: 600;">Can you be one of my 18th Gift?</p>
+  <div style="display: flex; justify-content: center;">
+    <button onclick="submitAnswer('Yes 💖 (Gift)', 'yes')">Yes 💖 (Gift)</button>
+    <button onclick="submitAnswer('No 😢 (Gift)', 'no')">No 😢 (Gift)</button>
+  </div>
+  <p class="message" id="giftMessage"></p>
+</div>
+
+<script>
+const intro = document.getElementById("intro");
+const questionCard = document.getElementById("questionCard");
+const guestName = document.getElementById("guestName");
+const introMessage = document.getElementById("introMessage");
+const giftMessage = document.getElementById("giftMessage");
+const biancaPhoto = document.getElementById("biancaPhoto");
+const scriptURL = "https://script.google.com/macros/s/AKfycbzqKlrTPeqd5NFex66L6MJCUrkRMAS5yAsrc88DwMPQROpD27pSbNiXbpcWDknYy34N/exec";
+
+guestName.addEventListener("keypress", e => { if(e.key === "Enter") goToQuestion(); });
+
+function goToQuestion() {
+  if(guestName.value.trim() === "") {
+    introMessage.textContent = "Please enter your name first!";
+    introMessage.style.color = "red";
+    return;
+  }
+  intro.style.transform = "scale(0.95)";
+  intro.style.opacity = "0";
+  setTimeout(() => {
+    intro.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+    questionCard.style.transform = "scale(0.95)";
+    questionCard.style.opacity = "0";
+    setTimeout(() => {
+      questionCard.style.transform = "scale(1)";
+      questionCard.style.opacity = "1";
+    }, 50);
+  }, 200);
+}
+
+function createConfetti() {
+  for(let i=0;i<50;i++){
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti-piece';
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+    confetti.style.left = (biancaPhoto.offsetLeft + Math.random()*biancaPhoto.offsetWidth) + 'px';
+    confetti.style.top = (biancaPhoto.offsetTop + Math.random()*-50) + 'px';
+    confetti.style.width = Math.random()*10+5+'px';
+    confetti.style.height = confetti.style.width;
+    document.body.appendChild(confetti);
+    let fall = setInterval(() => {
+      let top = parseFloat(confetti.style.top);
+      if(top > window.innerHeight){ confetti.remove(); clearInterval(fall); }
+      else confetti.style.top = top + 5 + 'px';
+    }, 20);
+  }
+}
+
+function createRain() {
+  for(let i=0;i<30;i++){
+    const drop = document.createElement('div');
+    drop.className = 'raindrop';
+    drop.style.left = (biancaPhoto.offsetLeft + Math.random()*biancaPhoto.offsetWidth) + 'px';
+    drop.style.top = (biancaPhoto.offsetTop + Math.random()*-50) + 'px';
+    drop.style.animationDuration = (Math.random()*1+0.5)+'s';
+    document.body.appendChild(drop);
+    setTimeout(()=>{ drop.remove(); }, 2000);
+  }
+}
+
+function submitAnswer(answer, type) {
+  giftMessage.textContent = type==='yes' ? "Yay! 🎉" : "Aww 😢";
+  giftMessage.style.color = type==='yes' ? "green" : "blue";
+
+ // Disable buttons to prevent more submissions
+  const buttons = questionCard.querySelectorAll("button");
+  buttons.forEach(btn => btn.disabled = true);
+  guestName.disabled = true;
+
+  if(type==='yes') createConfetti();
+  else if(type==='no') createRain();
+
+  const name = guestName.value;
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("answer", answer);
+  fetch(scriptURL, { method: "POST", body: formData })
+    .catch(error => { console.error("Error saving:", error); });
+}
+</script>
+
+</body>
+</html>
